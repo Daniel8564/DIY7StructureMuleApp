@@ -39,7 +39,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 			<http:headers><![CDATA[#[output application/java
 ---
 {
-	"date" : attributes.headers.'destination',
+	"date" : attributes.headers.date,
 	"requester-id" : vars.'requester-id',
 	"destination" : vars.'destination'
 }]]]></http:headers>
@@ -50,12 +50,15 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     &quot;payload-GET&quot;: vars.'payload-GET',
 	&quot;payload-PROCESS&quot;: payload,
     &quot;destination-process&quot;: vars.destination,
-    &quot;requesterID-process&quot;: vars.'requester-id'
+    &quot;requesterID-process&quot;: vars.'requester-id',
+    &quot;Date&quot;: attributes.headers.date
 }]" doc:name="final summary" doc:id="68c44115-a04b-420b-8fe9-aa83f6d5c305" />
 	</flow>
 	<flow name="mockData" doc:id="578be7bc-ce05-493e-9385-ef388dbcc6b8" >
-		<set-payload value='#[[
-        {
+		<set-payload value='#[output application/json 
+---
+[
+	{
             "planeType": "Boeing 737",
             "code2": "1093",
             "toAirport": "SFO",
@@ -110,7 +113,8 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
             "seatsAvailable": "100",
             "code1": "rree"
         }
-    ]]' doc:name="flights" doc:id="71c10e25-6deb-4850-9659-a1615d4e75ec" mimeType="application/json" />
+
+]]' doc:name="flights" doc:id="71c10e25-6deb-4850-9659-a1615d4e75ec" mimeType="application/json" />
 	</flow>
 	<flow name="processData" doc:id="c7379ac2-5182-4bd2-8475-cd7c520f8319" >
 		<http:listener doc:name="POST /processData" doc:id="5067a7c9-3aed-46eb-8461-7e33bc0dfc73" config-ref="HTTP_Listener_config" path="/processData"/>
