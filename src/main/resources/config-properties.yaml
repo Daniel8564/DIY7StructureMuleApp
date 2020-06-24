@@ -1,0 +1,11 @@
+request:
+  host: "mu.learn.mulesoft.com"
+  port: "80"
+  
+requestPost:
+  path: "/processData"
+ 
+http:
+ host: "0.0.0.0"
+ port: "8081"
+    
